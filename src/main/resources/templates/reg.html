@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <meta name="description" content="Responsive Bootstrap 4 and web Application ui kit.">
+    <title>[[${name}]]</title>
+    <link rel="icon" th:href="@{/img/favicon.ico}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.min.css}">
+</head>
+
+<body class="theme-blush">
+
+<div class="authentication">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-sm-12">
+                <form class="card auth_form layui-form">
+                    <div class="header">
+                        <img class="logo" th:src="@{/img/logo.svg}" alt="">
+                        <h5>Sign Up</h5>
+                    </div>
+                    <div class="body">
+                        <input type="text" class="form-control layui-input" name="invitation" th:value="${code}" style="display:none">
+                        <div class="input-group mb-3 layui-form-item">
+                            <input type="text" class="form-control layui-input" name="username" placeholder="用户名">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="zmdi zmdi-account-circle"></i></span>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control layui-input" name="email" placeholder="邮箱">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="zmdi zmdi-email"></i></span>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3 layui-form-item">
+                            <input type="text" class="form-control layui-input" name="password" placeholder="密码">
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="zmdi zmdi-lock"></i></a></span>
+                            </div>
+                        </div>
+                        <a lay-filter="reg" lay-submit="" class="btn btn-primary btn-block waves-effect waves-light">注
+                            册</a>
+                    </div>
+                </form>
+                <div class="copyright text-center">
+                    &copy;
+                    <script>document.write(new Date().getFullYear())</script>
+                    ,
+                    <span> by [[${name}]]</span>
+                </div>
+            </div>
+            <div class="col-lg-8 col-sm-12">
+                <div class="card">
+                    <img th:src="@{/img/signup.svg}" alt="Sign In"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/layui/layui.js}"></script>
+<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+<script>
+    layui.use(['layer', 'form'], function () {
+        var layer = layui.layer
+            , form = layui.form;
+        form.on('submit(reg)', function (data) {
+            var loading = layer.load(0, {
+                shade: false
+            });
+            $.ajax({
+                url: "/apis/user/reg",
+                method: 'post',
+                data: data.field,
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                dataType: 'JSON',
+                success: function (result) {
+                    layer.close(loading);
+                    if (result.code == 404) {
+                        layer.msg(result.msg);
+                    } else
+                        layer.msg(result.msg, function () {
+                            window.location = '[[${dow}]]';
+                        });
+                },
+                error: function (e) {
+                    layer.msg("提交错误");
+                    layer.close(loading);
+                }
+            })
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

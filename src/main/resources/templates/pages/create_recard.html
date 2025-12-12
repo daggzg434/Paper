@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>[[${name}]]</title>
+    <link rel="icon" th:href="@{/img/favicon.ico}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/css/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.min.css}">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}"/>
+</head>
+<!--加载框-->
+<div class="page-loader-wrapper">
+    <div class="loader">
+        <div class="m-t-30"><img class="zmdi-hc-spin" th:src="@{/img/loader.svg}" width="48" height="48" alt="Aero">
+        </div>
+        <p>Please wait...</p>
+    </div>
+</div>
+<div class="overlay"></div>
+<body class="theme-blush">
+<!--左侧菜单-->
+<div class="navbar-right">
+    <ul class="navbar-nav">
+        <li><a href="javascript:void(0);" class="js-right-sidebar" title="设置"><i
+                class="zmdi zmdi-settings zmdi-hc-spin"></i></a></li>
+        <li><a href="javascript:void(0);" class="mega-menu" title="注销登录"><i class="zmdi zmdi-power"></i></a></li>
+    </ul>
+</div>
+<!-- 左侧栏 -->
+<div th:replace="pages/sidebar :: sidebar"></div>
+<!-- 右侧栏 -->
+<aside id="rightsidebar" class="right-sidebar">
+    <ul class="nav nav-tabs sm">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#setting"><i
+                class="zmdi zmdi-settings zmdi-hc-spin"></i></a></li>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="setting">
+            <div class="slim_scroll">
+                <div class="card">
+                    <h6>主题选项</h6>
+                    <div class="light_dark">
+                        <div class="radio">
+                            <input type="radio" name="radio1" id="lighttheme" value="light" checked="">
+                            <label for="lighttheme">亮主题</label>
+                        </div>
+                        <div class="radio mb-0">
+                            <input type="radio" name="radio1" id="darktheme" value="dark">
+                            <label for="darktheme">暗主题</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h6>皮肤颜色</h6>
+                    <ul class="choose-skin list-unstyled">
+                        <li data-theme="purple">
+                            <div class="purple"></div>
+                        </li>
+                        <li data-theme="blue">
+                            <div class="blue"></div>
+                        </li>
+                        <li data-theme="cyan">
+                            <div class="cyan"></div>
+                        </li>
+                        <li data-theme="green">
+                            <div class="green"></div>
+                        </li>
+                        <li data-theme="orange">
+                            <div class="orange"></div>
+                        </li>
+                        <li data-theme="blush" class="active">
+                            <div class="blush"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
+<!--主视图-->
+<section class="content">
+    <div class="body_scroll">
+        <div class="block-header">
+            <div class="row">
+                <div class="col-lg-7 col-md-6 col-sm-12">
+                    <h2>充值卡生成</h2>
+                    <button class="btn btn-primary btn-icon mobile_menu" type="button"><i
+                            class="zmdi zmdi-sort-amount-desc"></i></button>
+                </div>
+                <div class="col-lg-5 col-md-6 col-sm-12">
+                    <button class="btn btn-primary btn-icon float-right right_icon_toggle_btn" type="button"><i
+                            class="zmdi zmdi-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row clearfix">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="body">
+                            <div class="table-responsive">
+
+                                <form class="layui-form layui-form-pane" action="" lay-filter="recard">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">生成张数</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="count" lay-verify="required|number"
+                                                   lay-reqtext="数量是必填项，岂能为空？" placeholder="请输入" autocomplete="off"
+                                                   class="layui-input" value="1">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">充值卡时长</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="time" lay-verify="required|number"
+                                                   lay-reqtext="时长是必填项，岂能为空？" placeholder="请输入" autocomplete="off"
+                                                   class="layui-input" value="1">
+                                        </div>
+                                    </div>
+                                    <!--<div class="layui-form-item">
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label">充值卡类型</label>
+                                            <div class="layui-input-inline">
+                                                <select name="modules" lay-verify="required">
+                                                    <option value="">请选择充值卡类型</option>
+                                                    <option value="1">小时卡</option>
+                                                    <option value="2">天卡</option>
+                                                    <option value="3">月卡</option>
+                                                    <option value="4">季卡</option>
+                                                    <option value="5">年卡</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">备注</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="mark" placeholder="请输入" autocomplete="off"
+                                                   class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item layui-form-text">
+                                        <label class="layui-form-label">生成结果</label>
+                                        <textarea rows="20" cols="20" name="list" class="layui-textarea"></textarea>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <button class="layui-btn" lay-submit="" lay-filter="create">立即生成</button>
+                                        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script th:src="@{/js/libscripts.bundle.js}"></script>
+<script th:src="@{/js/vendorscripts.bundle.js}"></script>
+<script th:src="@{/js/mainscripts.bundle.js}"></script>
+<script th:src="@{/layui/layui.all.js}"></script>
+<script>
+    layui.use(['layedit', 'form'], function () {
+        var form = layui.form,
+            layedit = layui.layedit;
+        form.render();
+
+        form.on('submit(create)', function (data) {
+            var loading = layer.load(0, {
+                shade: false
+            });
+            $.ajax({
+                url: "/Sys/CreateRecard/Card",
+                method: 'post',
+                data: data.field,
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true,
+                dataType: 'JSON',
+                success: function (result) {
+                    if (result.code == 200) {
+                        form.val('recard', {
+                            "list": result.msg.replace(/[|]/g, '\n')
+                        })
+                    } else
+                        layer.msg(result.msg);
+
+                    layer.close(loading);
+                },
+                error: function (e) {
+                    layer.msg("提交错误");
+                    layer.close(loading);
+                }
+            })
+            return false;
+        });
+    });
+</script>
+</body>
+</html>
